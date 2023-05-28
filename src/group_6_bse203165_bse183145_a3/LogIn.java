@@ -4,7 +4,7 @@
  */
 
 package group_6_bse203165_bse183145_a3;
-
+import java.sql.*;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
  * @author Muhammad Abdullah
  */
 public class LogIn extends javax.swing.JFrame {
+
+    private Object editPassword;
 
     /** Creates new form LogIn */
     public LogIn() {
@@ -46,7 +48,6 @@ public class LogIn extends javax.swing.JFrame {
 
         jLabel2.setText("Password");
 
-        jPasswordField1.setText("jPasswordField1");
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jPasswordField1ActionPerformed(evt);
@@ -89,20 +90,28 @@ public class LogIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        DaoLogIn dao = new DaoLogIn ();
-        String username = jTextField1.getText();
-        String password = jPasswordField1.getText();
-        boolean check = dao.LoginAccess(username, password);
         
-        if(check==true)
-        {
-             JOptionPane.showMessageDialog(null, "Sucessfully Loginn");
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "UserName or password are incorrect");
-        }
+
+Connection con;
+// TODO add your handling code here:
+   
+            try{
+                //openConnection
+                Class.forName(com.mysql.jdbc.Driver);
+                con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/hospital","root","my@123");
+                System.out.println("success");
+            
+            }catch(Exception e)
+            {
+                System.out.println(e.getMessage());
+                
+            }
+
+        LogIn l = new LogIn();
+        l.setVisible(false);
+        DoctorDetails doc = new DoctorDetails();
+        doc.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
@@ -151,5 +160,9 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+
+    private void setvisible(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
 }

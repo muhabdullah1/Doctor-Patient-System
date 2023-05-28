@@ -9,5 +9,9 @@ package group_6_bse203165_bse183145_a3;
  * @author Muhammad Abdullah
  */
 class ResultSet {
+
+    boolean next() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }
