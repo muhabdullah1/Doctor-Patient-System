@@ -1,0 +1,137 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+class Doctor {
+    private String name;
+    private String specialization;
+
+    public Doctor(String name, String specialization) {
+        this.name = name;
+        this.specialization = specialization;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+}
+
+class Patient {
+    private String name;
+    private int age;
+    private String gender;
+    private String illness;
+
+    public Patient(String name, int age, String gender, String illness) {
+        this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.illness = illness;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getIllness() {
+        return illness;
+    }
+}
+
+public class DoctorPatientSystem {
+    public static void main(String[] args) {
+        List<Doctor> doctors = new ArrayList<>();
+        doctors.add(new Doctor("Dr. Smith", "Cardiologist"));
+        doctors.add(new Doctor("Dr. Johnson", "Dermatologist"));
+        doctors.add(new Doctor("Dr. Williams", "Orthopedic"));
+
+        List<Patient> patients = new ArrayList<>();
+
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("**** Doctor Patient System ****");
+            System.out.println("1. Add a patient");
+            System.out.println("2. List all patients");
+            System.out.println("3. Assign a doctor to a patient");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter patient name: ");
+                    String name = scanner.next();
+                    System.out.print("Enter patient age: ");
+                    int age = scanner.nextInt();
+                    System.out.print("Enter patient gender: ");
+                    String gender = scanner.next();
+                    System.out.print("Enter patient illness: ");
+                    String illness = scanner.next();
+                    patients.add(new Patient(name, age, gender, illness));
+                    System.out.println("Patient added successfully!");
+                    break;
+                case 2:
+                    System.out.println("List of all patients:");
+                    for (Patient patient : patients) {
+                        System.out.println("Name: " + patient.getName());
+                        System.out.println("Age: " + patient.getAge());
+                        System.out.println("Gender: " + patient.getGender());
+                        System.out.println("Illness: " + patient.getIllness());
+                        System.out.println("----------------------");
+                    }
+                    break;
+                case 3:
+                    System.out.println("Assign a doctor to a patient:");
+                    System.out.print("Enter patient name: ");
+                    String patientName = scanner.next();
+                    System.out.print("Enter doctor name: ");
+                    String doctorName = scanner.next();
+
+                    Doctor assignedDoctor = null;
+                    for (Doctor doctor : doctors) {
+                        if (doctor.getName().equals(doctorName)) {
+                            assignedDoctor = doctor;
+                            break;
+                        }
+                    }
+
+                    if (assignedDoctor != null) {
+                        for (Patient patient : patients) {
+                            if (patient.getName().equals(patientName)) {
+                                System.out.println("Patient: " + patient.getName());
+                                System.out.println("Assigned Doctor: " + assignedDoctor.getName());
+                                System.out.println("Specialization: " + assignedDoctor.getSpecialization());
+                                System.out.println("----------------------");
+                                break;
+                            }
+                        }
+                    } else {
+                        System.out.println("Doctor not found!");
+                    }
+                    break;
+                case 4:
+                    System.out.println("Exiting...");
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+                    break;
+            }
+        } while (choice != 4);
+
+        scanner.close();
+    }
+}
